@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   FormElement,
@@ -17,15 +17,17 @@ const Form = () => {
   const [type, setType] = useState('default');
   const [autodelete, setAutodelete] = useState(false);
   const [autodeleteTimeout, setAutodeleteTimeout] = useState('');
+  const autodeleteRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (autodeleteRef.current) {
+      autodeleteRef.current.focus();
+    }
+  }, [autodelete]);
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     setToastText(e.target.value);
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(addToast(toastText, type, parseInt(autodeleteTimeout)));
-  };
 
   const onPositionSelectChange = (e: ChangeEvent<HTMLSelectElement>) =>
     dispatch(changePosition(e.target.value));
@@ -42,6 +44,11 @@ const Form = () => {
     if (e.target.value === '' || regex.test(e.target.value)) {
       setAutodeleteTimeout(e.target.value);
     }
+  };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(addToast(toastText, type, parseInt(autodeleteTimeout)));
   };
 
   return (
@@ -76,6 +83,7 @@ const Form = () => {
         placeholder="What timeout in ms?"
         value={autodeleteTimeout}
         onChange={onAutodeleteTimeoutChange}
+        ref={autodeleteRef}
       />
       <Submit disabled={!toastText}>Show!</Submit>
     </FormElement>
