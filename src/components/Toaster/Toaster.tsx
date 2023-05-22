@@ -9,13 +9,13 @@ type ToasterProps = {
 const Toaster = ({ toasts, position }: ToasterProps) => {
   return (
     <ToasterContainer className={position}>
-      {toasts.map(({ text, id, type }, index) => (
+      {toasts.map(({ text, id, type, autodeleteTimeout }, index) => (
         <Toast
           className={position}
           key={index}
           text={text}
           id={id}
-          autoDeleteTimeout={1000}
+          autoDeleteTimeout={autodeleteTimeout}
           type={type}
         />
       ))}

@@ -22,7 +22,6 @@ const getToastColor = (type: string) => {
 
 export const ToastContainer = styled.div<ToastContainerProps>`
   display: flex;
-  justify-content: space-between;
   background-color: ${({ type }) => getToastColor(type)};
   transition: 0.3s ease;
   position: relative;
@@ -62,7 +61,13 @@ export const ToastContainer = styled.div<ToastContainerProps>`
   }
 `;
 
+export const Image = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
 export const CloseButton = styled.button`
+  margin-left: auto;
   background: none;
   color: #fff;
   border: none;
@@ -73,5 +78,6 @@ export const CloseButton = styled.button`
 `;
 
 export const ToastText = styled.p`
+  margin-left: 16px;
   color: #fff;
 `;

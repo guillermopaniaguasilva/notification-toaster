@@ -8,4 +8,6 @@ export const Main = styled.div`
   align-items: center;
 `;
 
-export const Heading = styled.h1``;
+export const Heading = styled.h1`
+  text-align: center;
+`;

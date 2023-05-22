@@ -11,7 +11,12 @@ export const toastsReducer = (state = INITIAL_STATE, action: AnyAction) => {
     case TOASTS_TYPES.CREATE_TOAST:
       return [
         ...state,
-        { text: payload.text, id: Date.now().toString(36), type: payload.type },
+        {
+          text: payload.text,
+          id: Date.now().toString(36),
+          type: payload.type,
+          autodeleteTimeout: payload.autodeleteTimeout,
+        },
       ];
     case TOASTS_TYPES.DELETE_TOAST:
       return [...state.filter((toast: ToastType) => toast.id !== payload)];
